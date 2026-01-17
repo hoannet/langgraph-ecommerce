@@ -396,7 +396,7 @@ tail -f data/logs/chatbot.log | grep "context"
 
 ## 🔗 Related Files
 
-- Schema definition: [`src/models/schemas.py`](file:///springme/projects/agentic-ai/langgraph-test/src/models/schemas.py#L48-L53)
-- API handling: [`src/api/routes/chat.py`](file:///springme/projects/agentic-ai/langgraph-test/src/api/routes/chat.py#L40-L45)
-- State definition: [`src/state/graph_state.py`](file:///springme/projects/agentic-ai/langgraph-test/src/state/graph_state.py)
-- Payment agent usage: [`src/agents/payment.py`](file:///springme/projects/agentic-ai/langgraph-test/src/agents/payment.py#L45-L50)
+- Schema definition: [`src/models/schemas.py`](file:///projects/agentic-ai/langgraph-test/src/models/schemas.py#L48-L53)
+- API handling: [`src/api/routes/chat.py`](file:///projects/agentic-ai/langgraph-test/src/api/routes/chat.py#L40-L45)
+- State definition: [`src/state/graph_state.py`](file:///projects/agentic-ai/langgraph-test/src/state/graph_state.py)
+- Payment agent usage: [`src/agents/payment.py`](file:///projects/agentic-ai/langgraph-test/src/agents/payment.py#L45-L50)

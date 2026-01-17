@@ -14,7 +14,7 @@ src/graphs/
 
 ---
 
-## 🎯 1. Chat Workflow - [`chat_workflow.py`](file:///springme/projects/agentic-ai/langgraph-test/src/graphs/chat_workflow.py)
+## 🎯 1. Chat Workflow - [`chat_workflow.py`](file:///projects/agentic-ai/langgraph-test/src/graphs/chat_workflow.py)
 
 ### **Mục đích**: Workflow chính để xử lý chat với intent-based routing
 
@@ -135,7 +135,7 @@ def get_chat_workflow(checkpointer=None):
 
 ---
 
-## 🔧 2. Node Functions - [`nodes.py`](file:///springme/projects/agentic-ai/langgraph-test/src/graphs/nodes.py)
+## 🔧 2. Node Functions - [`nodes.py`](file:///projects/agentic-ai/langgraph-test/src/graphs/nodes.py)
 
 ### **Mục đích**: Định nghĩa các **reusable async functions** làm nodes trong workflow
 
@@ -283,7 +283,7 @@ def route_by_intent(state: ChatState) -> str:
 
 ---
 
-## 💳 3. Payment Workflow - [`payment_workflow.py`](file:///springme/projects/agentic-ai/langgraph-test/src/graphs/payment_workflow.py)
+## 💳 3. Payment Workflow - [`payment_workflow.py`](file:///projects/agentic-ai/langgraph-test/src/graphs/payment_workflow.py)
 
 ### **Mục đích**: Workflow riêng cho payment processing với validation
 

@@ -5,7 +5,7 @@
 ### 1. **Memory (Runtime) - Trong RAM**
 
 **Vị trí**: `SessionMemoryManager` trong code
-**File**: [`src/memory/conversation.py`](file:///springme/projects/agentic-ai/langgraph-test/src/memory/conversation.py)
+**File**: [`src/memory/conversation.py`](file:///projects/agentic-ai/langgraph-test/src/memory/conversation.py)
 
 ```python
 # Lưu trong RAM, theo session_id
@@ -31,7 +31,7 @@ curl -X GET "http://localhost:8000/chat/{session_id}/history"
 
 ### 2. **Checkpoints (Persistent) - File JSON**
 
-**Vị trí**: [`data/checkpoints/`](file:///springme/projects/agentic-ai/langgraph-test/data/checkpoints/)
+**Vị trí**: [`data/checkpoints/`](file:///projects/agentic-ai/langgraph-test/data/checkpoints/)
 
 **Format file**: `{thread_id}_{checkpoint_id}.json`
 
@@ -63,7 +63,7 @@ curl -X GET "http://localhost:8000/chat/{session_id}/history"
 - ✅ Có thể resume conversation
 - ⚠️ Hiện tại dùng `MemorySaver` (in-memory), chưa lưu file
 
-**Để enable file checkpoints**, sửa trong [`src/graphs/chat_workflow.py`](file:///springme/projects/agentic-ai/langgraph-test/src/graphs/chat_workflow.py):
+**Để enable file checkpoints**, sửa trong [`src/graphs/chat_workflow.py`](file:///projects/agentic-ai/langgraph-test/src/graphs/chat_workflow.py):
 
 ```python
 from src.memory.checkpoints import FileCheckpointSaver
@@ -82,7 +82,7 @@ def get_chat_workflow(checkpointer=None):
 
 ### 3. **Logs - File Text**
 
-**Vị trí**: [`data/logs/chatbot.log`](file:///springme/projects/agentic-ai/langgraph-test/data/logs/chatbot.log)
+**Vị trí**: [`data/logs/chatbot.log`](file:///projects/agentic-ai/langgraph-test/data/logs/chatbot.log)
 
 **Format**:
 ```
