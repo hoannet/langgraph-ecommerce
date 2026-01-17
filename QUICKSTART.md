@@ -15,7 +15,7 @@ docker ps | grep mongodb
 ### Bước 2: Test Connection & Seed Data
 
 ```bash
-cd /Users/springhoan/DataWork/springme/projects/agentic-ai/langgraph-test
+cd /springme/projects/agentic-ai/langgraph-test
 source venv/bin/activate
 
 # Test MongoDB connection

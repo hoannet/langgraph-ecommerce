@@ -188,7 +188,7 @@ curl -X POST "http://localhost:8000/chat/" \
 
 ## 🧪 Complete Test Script
 
-**File**: [`scripts/test_all_flows.sh`](file:///Users/springhoan/DataWork/springme/projects/agentic-ai/langgraph-test/scripts/test_all_flows.sh)
+**File**: [`scripts/test_all_flows.sh`](file:///springme/projects/agentic-ai/langgraph-test/scripts/test_all_flows.sh)
 
 ```bash
 #!/bin/bash

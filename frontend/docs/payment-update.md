@@ -51,7 +51,7 @@ Respond in JSON format:
 ```bash
 # Dừng backend hiện tại (Ctrl+C)
 # Sau đó chạy lại:
-cd /Users/springhoan/DataWork/springme/projects/agentic-ai/langgraph-test
+cd /springme/projects/agentic-ai/langgraph-test
 source venv/bin/activate
 uvicorn src.api.main:app --reload
 ```

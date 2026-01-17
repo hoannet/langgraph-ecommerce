@@ -1,3 +1,5 @@
+# 📁 Project Structure
+```
 langgraph-project/
 ├── .github/
 │   └── workflows/

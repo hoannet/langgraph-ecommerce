@@ -16,7 +16,7 @@
 
 But the code was trying to parse it directly, causing `JSONDecodeError`.
 
-**Solution**: Added `_extract_json_from_response()` helper method in [`intent_classifier.py`](file:///Users/springhoan/DataWork/springme/projects/agentic-ai/langgraph-test/src/agents/intent_classifier.py#L86-L113) to strip markdown code blocks before parsing.
+**Solution**: Added `_extract_json_from_response()` helper method in [`intent_classifier.py`](file:///springme/projects/agentic-ai/langgraph-test/src/agents/intent_classifier.py#L86-L113) to strip markdown code blocks before parsing.
 
 **Files Modified**:
 - `src/agents/intent_classifier.py` - Added extraction helper
@@ -121,8 +121,8 @@ Expected: Intent should be correctly classified as `"payment"` and routed to Pay
 
 ## Additional Files Created
 
-1. **[curl_examples.sh](file:///Users/springhoan/DataWork/springme/projects/agentic-ai/langgraph-test/scripts/curl_examples.sh)** - Executable script with all API examples
-2. **[curl_examples.md](file:///Users/springhoan/DataWork/springme/projects/agentic-ai/langgraph-test/docs/curl_examples.md)** - Documentation with curl commands
+1. **[curl_examples.sh](file:///springme/projects/agentic-ai/langgraph-test/scripts/curl_examples.sh)** - Executable script with all API examples
+2. **[curl_examples.md](file:///springme/projects/agentic-ai/langgraph-test/docs/curl_examples.md)** - Documentation with curl commands
 
 ---
 

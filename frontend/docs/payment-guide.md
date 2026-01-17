@@ -10,7 +10,7 @@ Frontend đã được tích hợp sẵn khả năng xử lý thanh toán thông
 
 **Terminal 1 - Backend:**
 ```bash
-cd /Users/springhoan/DataWork/springme/projects/agentic-ai/langgraph-test
+cd /springme/projects/agentic-ai/langgraph-test
 source venv/bin/activate
 # Chạy backend server (ví dụ: uvicorn src.api.main:app --reload)
 ```

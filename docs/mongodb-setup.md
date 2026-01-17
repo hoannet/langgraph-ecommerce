@@ -50,7 +50,7 @@ brew services list | grep mongodb
 ## ✅ Test Connection
 
 ```bash
-cd /Users/springhoan/DataWork/springme/projects/agentic-ai/langgraph-test
+cd /springme/projects/agentic-ai/langgraph-test
 source venv/bin/activate
 
 # Test MongoDB connection

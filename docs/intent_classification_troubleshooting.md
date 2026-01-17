@@ -43,7 +43,7 @@ Intent categories:
 
 ### **Solution 1: Cải Thiện Prompt** ⭐ (IMPLEMENTED)
 
-**Đã fix trong**: [`src/prompts/system_prompts.py`](file:///Users/springhoan/DataWork/springme/projects/agentic-ai/langgraph-test/src/prompts/system_prompts.py)
+**Đã fix trong**: [`src/prompts/system_prompts.py`](file:///springme/projects/agentic-ai/langgraph-test/src/prompts/system_prompts.py)
 
 **Thay đổi**:
 1. ✅ Thêm **concrete examples** cho mỗi intent

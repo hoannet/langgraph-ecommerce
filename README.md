@@ -38,7 +38,7 @@ A production-grade chatbot system built with LangGraph, featuring specialized ag
 ### 1. Clone and Setup
 
 ```bash
-cd /Users/springhoan/DataWork/springme/projects/agentic-ai/langgraph-test
+cd projects/agentic-ai/langgraph-ecommerce
 
 # Create virtual environment
 python -m venv venv
