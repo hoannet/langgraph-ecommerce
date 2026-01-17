@@ -44,6 +44,10 @@ source venv/bin/activate
 
 # 3. Run seed script
 python src/database/seed_data.py
+
+python -m src.database.seed_data
+
+
 ```
 
 **Expected Output:**
