@@ -18,6 +18,12 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
+    # LLM Provider Selection
+    llm_provider: str = Field(
+        default="lm_studio",
+        description="LLM provider: 'lm_studio', 'gemini', or 'openai'",
+    )
+
     # LM Studio Configuration
     lm_studio_base_url: str = Field(
         default="http://localhost:1234/v1",
@@ -30,6 +36,26 @@ class Settings(BaseSettings):
     lm_studio_api_key: str = Field(
         default="not-needed",
         description="API key (not required for LM Studio)",
+    )
+
+    # Google Gemini Configuration
+    gemini_api_key: str = Field(
+        default="",
+        description="Google Gemini API key",
+    )
+    gemini_model_name: str = Field(
+        default="gemini-pro",
+        description="Gemini model name (gemini-pro, gemini-1.5-pro, etc.)",
+    )
+
+    # OpenAI Configuration
+    openai_api_key: str = Field(
+        default="",
+        description="OpenAI API key",
+    )
+    openai_model_name: str = Field(
+        default="gpt-4o-mini",
+        description="OpenAI model name (gpt-4o, gpt-4o-mini, gpt-3.5-turbo, etc.)",
     )
 
     # API Configuration

@@ -26,7 +26,7 @@ Available intents:
    Examples: "I want product prod_001", "Order this laptop", "I'll take 2"
 
 3. payment - User wants to PAY/MAKE PAYMENT (must have "pay" keyword!)
-   ✅ YES: "Pay", "Pay now", "I want to pay", "Process payment", "Charge me"
+   ✅ YES: "Pay", "Pay now", "I want to pay", "Process payment", "Charge me","check payment now","check payment status","check payment status now"
    ❌ NOT: "Show me" (that's search), "I want product" (that's order)
    Examples: "Pay now", "I want to pay", "Process payment for $50"
 

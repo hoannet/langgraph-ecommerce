@@ -31,6 +31,7 @@ class PaymentRequest(BaseModel):
     amount: float = Field(gt=0, description="Payment amount")
     currency: str = Field(default="USD", description="Currency code")
     description: Optional[str] = None
+    order_id: Optional[str] = Field(default=None, description="Associated order ID")
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
 

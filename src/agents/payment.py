@@ -104,8 +104,16 @@ class PaymentAgent(BaseAgent):
         if not order:
             return f"❌ Order {order_id} not found. Please check the order ID."
 
+        # Check order status
         if order.status == OrderStatus.PAID:
             return f"ℹ️ Order {order_id} has already been paid."
+        
+        if order.status == OrderStatus.AWAITING_PAYMENT:
+            return (
+                f"⏳ Order {order_id} is already awaiting payment.\n\n"
+                f"A payment request has been created for this order.\n"
+                f"Please complete the pending payment or contact support if you need assistance."
+            )
 
         # Create payment request
         from src.models.schemas import PaymentRequest
@@ -114,43 +122,43 @@ class PaymentAgent(BaseAgent):
             amount=order.total,
             currency="USD",
             description=f"Payment for order {order_id}",
+            order_id=order_id,  # Link payment to order
         )
 
         logger.info(f"Processing payment for order {order_id}: ${order.total}")
 
-        # Process payment
-        result = self.payment_processor.process_payment(payment_request)
+        # Process payment (async)
+        result = await self.payment_processor.process_payment(payment_request)
 
-        # If payment successful, update order status
-        if result.status.value == "completed":
-            await OrderService.update_order_status(
-                order_id=order_id,
-                status=OrderStatus.PAID,
-                payment_id=result.transaction_id,
-            )
-            logger.info(f"Order {order_id} updated to PAID")
+        # Update order status to AWAITING_PAYMENT
+        await OrderService.update_order_status(
+            order_id=order_id,
+            status=OrderStatus.AWAITING_PAYMENT,
+        )
+        logger.info(f"Order {order_id} updated to AWAITING_PAYMENT")
 
-            # Format success response
-            response = f"""✅ **Payment Successful!**
+        # Format response with payment info
+        response = f"""✅ **Yêu cầu thanh toán đã được tạo!**
 
-**Order Details:**
-- Order ID: `{order_id}`
-- Status: **PAID** ✓
+**Thông tin đơn hàng:**
+- Mã đơn hàng: `{order_id}`
+- Trạng thái: **CHỜ THANH TOÁN** ⏳
 
-**Payment Information:**
-- Transaction ID: `{result.transaction_id}`
-- Amount: **${order.total:.2f}** USD
-- Status: {result.status.value.upper()}
+**Thông tin thanh toán:**
+- Mã giao dịch: `{result.transaction_id}`
+- Số tiền: **${order.total:.2f}** USD
+- Trạng thái: {result.status.value.upper()}
 
-**Items Purchased:**
+**Sản phẩm:**
 """
-            for item in order.items:
-                response += f"- {item.product_name} x{item.quantity} = ${item.subtotal:.2f}\n"
+        for item in order.items:
+            response += f"- {item.product_name} x{item.quantity} = ${item.subtotal:.2f}\n"
 
-            response += f"\n**Total Paid: ${order.total:.2f}**\n\nThank you for your purchase! 🎉"
-            return response
-        else:
-            return f"❌ Payment failed: {result.message}"
+        response += f"\n**Tổng cộng: ${order.total:.2f}**\n\n"
+        response += "📱 Vui lòng quét mã QR để hoàn tất thanh toán.\n"
+        response += "Sau khi thanh toán thành công, đơn hàng sẽ được tự động cập nhật."
+
+        return response
 
     async def _process_regular_payment(
         self, user_message: str, payment_data: Optional[Dict] = None
@@ -200,8 +208,8 @@ class PaymentAgent(BaseAgent):
             description=description,
         )
 
-        # Process payment
-        result = self.payment_processor.process_payment(payment_request)
+        # Process payment (async)
+        result = await self.payment_processor.process_payment(payment_request)
 
         # Format response
         response = f"""✅ **Payment Processed!**
