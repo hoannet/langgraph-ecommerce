@@ -7,6 +7,7 @@ from langchain_core.messages import HumanMessage
 
 from src.core.logging import get_logger
 from src.graphs.chat_workflow import get_chat_workflow
+from src.graphs.rag_workflow import get_rag_workflow
 from src.memory.conversation import SessionMemoryManager
 from src.models.schemas import ChatRequest, ChatResponse
 from src.utils.helpers import generate_session_id
@@ -31,12 +32,29 @@ async def chat(
     Returns:
         Chat response
     """
-    logger.info(f"Received chat request: session_id={request.session_id}")
+    logger.info(f"Received chat request: session_id={request.session_id}, use_rag={request.use_rag}")
 
     # Generate session ID if not provided
     session_id = request.session_id or generate_session_id()
 
     try:
+        # Route to RAG workflow if use_rag is True
+        if request.use_rag:
+            logger.info("Routing to RAG workflow")
+            from src.api.routes.rag import query_knowledge_base, QueryRequest
+            
+            # Call RAG query endpoint
+            rag_request = QueryRequest(query=request.message)
+            rag_response = await query_knowledge_base(rag_request)
+            
+            return ChatResponse(
+                message=rag_response.answer,
+                session_id=session_id,
+                metadata={
+                    "sources": rag_response.sources,
+                    "rag_mode": True,
+                },
+            )
         # Create initial state
         initial_state = {
             "messages": [HumanMessage(content=request.message)],

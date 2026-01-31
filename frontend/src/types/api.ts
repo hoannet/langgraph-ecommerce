@@ -29,6 +29,7 @@ export interface ChatRequest {
     message: string;
     session_id?: string;
     metadata?: Record<string, any>;
+    use_rag?: boolean;
 }
 
 export interface ChatResponse {

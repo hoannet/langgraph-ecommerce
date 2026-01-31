@@ -26,4 +26,5 @@ export interface ChatState {
     sessionId: string | null;
     isLoading: boolean;
     error: string | null;
+    ragEnabled: boolean;
 }

@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useRef, KeyboardEvent } from 'react';
+import { useChatStore } from '../store/chatStore';
 
 interface MessageInputProps {
     onSend: (message: string) => void;
@@ -13,6 +14,7 @@ interface MessageInputProps {
 const MessageInput: React.FC<MessageInputProps> = ({ onSend, disabled = false }) => {
     const [message, setMessage] = useState('');
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const { ragEnabled } = useChatStore();
 
     const handleSend = () => {
         if (message.trim() && !disabled) {
@@ -38,13 +40,19 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSend, disabled = false })
 
     return (
         <div className="message-input-container">
+            {ragEnabled && (
+                <div className="rag-mode-indicator">
+                    <span className="rag-icon">🔍</span>
+                    <span className="rag-text">RAG Mode Active - Searching knowledge base</span>
+                </div>
+            )}
             <textarea
                 ref={textareaRef}
                 className="message-input"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Type your message... (Shift+Enter for new line)"
+                placeholder={ragEnabled ? "Ask about your documents..." : "Type your message... (Shift+Enter for new line)"}
                 disabled={disabled}
                 rows={1}
             />

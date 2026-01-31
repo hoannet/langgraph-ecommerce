@@ -6,7 +6,7 @@ from typing import AsyncGenerator
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.api.routes import chat, orders, payment, products
+from src.api.routes import chat, orders, payment, products, rag
 from src.core.config import get_settings
 from src.core.logging import get_logger, setup_logging
 from src.database.mongodb import MongoDB
@@ -28,10 +28,22 @@ async def lifespan(app: FastAPI) -> AsyncGenerator:
     except Exception as e:
         logger.error(f"Failed to connect to MongoDB: {e}")
     
+    # Connect to TiDB Vector
+    try:
+        from src.database.tidb import TiDBVector
+        TiDBVector.connect()
+        logger.info("TiDB Vector connected successfully")
+    except Exception as e:
+        logger.error(f"Failed to connect to TiDB Vector: {e}")
+    
     yield
     
-    # Close MongoDB connection
+    # Close connections
     await MongoDB.close()
+    
+    from src.database.tidb import TiDBVector
+    TiDBVector.close()
+    
     logger.info("Shutting down application...")
 
 
@@ -60,6 +72,7 @@ def create_app() -> FastAPI:
     app.include_router(payment.router)
     app.include_router(products.router)
     app.include_router(orders.router)
+    app.include_router(rag.router)
 
     @app.get("/")
     async def root():

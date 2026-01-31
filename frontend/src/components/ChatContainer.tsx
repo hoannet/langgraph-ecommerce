@@ -7,6 +7,7 @@ import React from 'react';
 import { useChatStore } from '../store/chatStore';
 import MessageList from './MessageList';
 import MessageInput from './MessageInput';
+import RagToggle from './RagToggle';
 
 const ChatContainer: React.FC = () => {
     const { messages, isLoading, error, sendMessage, clearHistory, sessionId } = useChatStore();
@@ -37,6 +38,7 @@ const ChatContainer: React.FC = () => {
                     )}
                 </div>
                 <div className="header-actions">
+                    <RagToggle />
                     {messages.length > 0 && (
                         <button className="clear-button" onClick={handleClearHistory}>
                             Clear History

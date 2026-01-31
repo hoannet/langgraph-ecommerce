@@ -13,6 +13,7 @@ interface ChatStore extends ChatState {
     clearHistory: () => Promise<void>;
     loadHistory: () => Promise<void>;
     setError: (error: string | null) => void;
+    toggleRag: () => void;
 }
 
 export const useChatStore = create<ChatStore>((set, get) => ({
@@ -21,6 +22,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
     sessionId: null,
     isLoading: false,
     error: null,
+    ragEnabled: false,
 
     // Actions
     sendMessage: async (content: string) => {
@@ -43,6 +45,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
             const response = await chatService.sendMessage({
                 message: content,
                 session_id: get().sessionId || undefined,
+                use_rag: get().ragEnabled,
             });
 
             // Parse response for structured data
@@ -118,6 +121,10 @@ export const useChatStore = create<ChatStore>((set, get) => ({
 
     setError: (error: string | null) => {
         set({ error });
+    },
+
+    toggleRag: () => {
+        set((state) => ({ ragEnabled: !state.ragEnabled }));
     },
 }));
 

@@ -52,6 +52,7 @@ class ChatRequest(BaseModel):
     message: str
     session_id: Optional[str] = None
     metadata: Dict[str, Any] = Field(default_factory=dict)
+    use_rag: bool = Field(default=False, description="Enable RAG mode")
 
 
 class ChatResponse(BaseModel):

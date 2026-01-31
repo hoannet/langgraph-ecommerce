@@ -8,7 +8,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000
 
 export const apiClient = axios.create({
     baseURL: API_BASE_URL,
-    timeout: 30000,
+    timeout: 120000, // 120s for LLM Studio (can take 40-60s)
     headers: {
         'Content-Type': 'application/json',
     },
