@@ -21,12 +21,14 @@ class ManualRAGState(TypedDict):
     documents: List[Document]
 
 
-def format_documents(documents: List[Document]) -> str:
+def format_documents(documents: List[Document], max_docs: int = 10, max_chars_per_doc: int = 500) -> str:
     """
-    Format documents for context injection.
+    Format documents for context injection with length limits.
     
     Args:
         documents: List of retrieved documents
+        max_docs: Maximum number of documents to include
+        max_chars_per_doc: Maximum characters per document
         
     Returns:
         Formatted context string
@@ -34,14 +36,25 @@ def format_documents(documents: List[Document]) -> str:
     if not documents:
         return "No relevant documents found."
     
+    # Limit number of documents to prevent context overflow
+    limited_docs = documents[:max_docs]
+    
     formatted = []
-    for i, doc in enumerate(documents, 1):
+    for i, doc in enumerate(limited_docs, 1):
         score = doc.metadata.get("score", 0)
         source = doc.metadata.get("source", "Unknown")
+        
+        # Truncate content if too long
+        content = doc.page_content
+        if len(content) > max_chars_per_doc:
+            content = content[:max_chars_per_doc] + "..."
+        
         formatted.append(
             f"[Document {i}] (Source: {source}, Relevance: {score:.3f})\n"
-            f"{doc.page_content}\n"
+            f"{content}\n"
         )
+    
+    logger.info(f"📄 Formatted {len(limited_docs)}/{len(documents)} documents (max {max_chars_per_doc} chars each)")
     return "\n".join(formatted)
 
 

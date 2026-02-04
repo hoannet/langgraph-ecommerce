@@ -12,6 +12,7 @@ from src.models.enums import AgentType, IntentType
 from src.models.schemas import IntentClassification
 from src.prompts.agent_prompts import INTENT_CLASSIFICATION_PROMPT
 from src.services.llm_service import LLMService
+from src.utils.retry import retry_with_backoff
 
 logger = get_logger(__name__)
 
@@ -37,13 +38,14 @@ class IntentClassifierAgent(BaseAgent):
             config=config,
         )
 
+    @retry_with_backoff(max_retries=3, initial_delay=6.0, max_delay=60.0)
     async def process(
         self,
         messages: List[BaseMessage],
         context: Optional[Dict[str, Any]] = None,
     ) -> str:
         """
-        Process messages and classify intent.
+        Process messages and classify intent with automatic retry on rate limits.
 
         Args:
             messages: Conversation messages
